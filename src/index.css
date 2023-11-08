@@ -1,4 +1,26 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  font-family: "Nunito Sans", sans-serif;
+  background-color: #F6F8FF;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;  
+  overflow-x: hidden; 
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
