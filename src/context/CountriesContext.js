@@ -3,14 +3,14 @@ import axios from "axios"
 
 export const CountriesListContext = createContext()
 const CountriesContext = ({ children }) => {
-    const [countries, setContries] = useState([])
+    const [countries, setCountries] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get("https://restcountries.com/v3.1/all")
-                setContries(response.data)
+                setCountries(response.data)
                 setLoading(false)
             } catch (error) {
                 console.log("Error fetching data", error)
@@ -21,7 +21,7 @@ const CountriesContext = ({ children }) => {
         fetchData()
     }, [])
   return (
-    <CountriesListContext.Provider value={{ countries, loading }}>
+    <CountriesListContext.Provider value={{ countries, setCountries, loading }}>
         {children}
     </CountriesListContext.Provider>
   )

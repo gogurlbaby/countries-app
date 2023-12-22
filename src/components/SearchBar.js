@@ -1,28 +1,52 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { CountriesListContext } from "../context/CountriesContext";
 import { ContextTheme } from "../context/ThemeContext";
+import axios from "axios";
 
 const SearchBar = () => {
   const { darkTheme } = useContext(ContextTheme);
-  const { countries } = useContext(CountriesListContext);
+  const { setCountries } = useContext(CountriesListContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedContinent, setSelectedContinent] = useState("Filter by Region");
-        // eslint-disable-next-line
-  const filteredCountries = countries.filter((country) => {
-    const matchesSearch = country.name.common.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesContinent =
-      selectedContinent === "Filter by Region" || country.region === selectedContinent;
+  
+  const fetchCountries = async () => {
+    try {
+      let url = `https://restcountries.com/v3.1/all`;
 
-    return matchesSearch && matchesContinent;
-  });
+      if (selectedContinent !== "Filter by Region") {
+        url = `https://restcountries.com/v3.1/region/${selectedContinent}`;
+      }
+
+      const response = await axios.get(url);
+      let filteredCountries = response.data;
+
+      if (searchTerm) {
+        filteredCountries = filteredCountries.filter((country) =>
+          country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
+      setCountries(filteredCountries);
+    } catch (error) {
+      console.error("Error fetching countries:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCountries();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedContinent, searchTerm, setCountries]);
 
   return (
     <div className="md:flex md:justify-between md:items-center md:mt-[4.5rem] mt-14">
       <div className={`${
         darkTheme ? "bg-[#2B3844] text-white" : "bg-white text-[#848484]"} 
         md:w-[40%] w-full shadow-[0px_2px_9px_0px_rgba(0, 0, 0, 0.05)] gap-6 flex rounded-md`}>
-        <AiOutlineSearch size={25} className="text-[#B2B2B2] relative top-4 ml-4" />
+        <AiOutlineSearch 
+         size={25} 
+         className="text-[#B2B2B2] relative top-4 ml-4" 
+        />
         <input
           type="text"
           name="countries"
@@ -51,8 +75,6 @@ const SearchBar = () => {
           )}
         </select>
       </div>
-      {/* You can render the total count of matching countries, or any other UI you'd like */}
-      {/* <p>Total matching countries: {filteredCountries.length}</p> */}
     </div>
   );
 };

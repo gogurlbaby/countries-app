@@ -12,7 +12,7 @@ function App() {
      <NavBar />
      <div className={`${ 
       darkTheme ? "bg-[#202C36]" : "bg-white"} 
-      App md:pt-6 md:pb-11 md:px-20 pt-8 pb-16 px-4`}>
+      App h-[100vh] xl:h-[120vh] md:pt-6 md:pb-11 md:px-20 pt-8 pb-16 px-4`}>
      <SearchBar />
      <CountriesList />
      </div>
