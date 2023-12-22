@@ -9,7 +9,7 @@ const CountriesContext = ({ children }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("https://restcountries.com/v3.1/all")
+                const response = await axios.get(`https://restcountries.com/v3.1/all`)
                 setCountries(response.data)
                 setLoading(false)
             } catch (error) {
@@ -20,6 +20,7 @@ const CountriesContext = ({ children }) => {
 
         fetchData()
     }, [])
+
   return (
     <CountriesListContext.Provider value={{ countries, setCountries, loading }}>
         {children}
