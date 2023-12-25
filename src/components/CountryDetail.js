@@ -36,8 +36,8 @@ const CountryDetail = () => {
 
   return (
     <>
-      <div className="h-screen w-full">
-        <div className="flex gap-2 cursor-pointer mt-10 lg:mt-20 mb-16 lg:mb-20">
+      <div className="min-[1200px]:h-screen w-full">
+        <div className="flex gap-2 cursor-pointer mt-10 min-[1200px]:mt-20 mb-16 min-[1200px]:mb-20">
           <IoIosArrowRoundBack 
            size={20} 
            className={`${
@@ -55,12 +55,13 @@ const CountryDetail = () => {
          </button>
       </div>
       
-      <div className="xl:flex xl:gap-28">
+      <div className="">
        {country ? (
-        <>
-          <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} className="md:w-[80%] xl:w-[40%]"/>
-        <div>
-        <h4 className={`${darkTheme ? "text-[#FFF]" : "text-[#111517]"} text-lg text-left font-extrabold mt-6 mb-4`}>{country.name.common}</h4>
+        <div className="min-[1200px]:flex min-[1200px]:gap-28">
+          <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} className="md:w-[80%] min-[1200px]:w-[40%]"/>
+        <div className="min-[1200px]:flex min-[1200px]:flex-wrap min-[1200px]:gap-24">
+        <div className="">
+        <h4 className={`${darkTheme ? "text-[#FFF]" : "text-[#111517]"} text-min-[1200px] text-left font-extrabold mt-6 mb-4`}>{country.name.common}</h4>
         <div className="mb-2 flex gap-1">
           <h5 className={`${darkTheme ? "text-[#FFF]" : "text-[#111517]"} text-left text-sm font-semibold mt-px}`}>
             Native Name: 
@@ -135,13 +136,7 @@ const CountryDetail = () => {
         </div>
           )}
       </div>
-      </>
-       ) : (
-          <p className={`${darkTheme ? "text-[#FFF]" : "text-[#111517]"} text-sm font-light}`}>Loading...</p>
-        )}
-     
-    </div>
-    <div className="xl:mt-16 xl:flex items-center xl:gap-4">
+      <div className="min-[1200px]:flex min-[1200px]:gap-4">
         <h5 className={`${darkTheme ? "text-[#FFF]" : "text-[#111517]"} text-md text-left font-extrabold mt-6 mb-4`}>Border Countries:</h5>
         <div className="flex gap-2">
           {borderingCountries.map((borderCountry) => (
@@ -149,7 +144,7 @@ const CountryDetail = () => {
            key={borderCountry.name.common}
            className={`${
            darkTheme ? "bg-[#2B3844] text-white" : "bg-white text-[#111517]"} 
-           py-2 px-4 rounded-md shadow-[0px_0px_7px_0px_rgba(0, 0, 0, 0.29)]`}
+           py-1 px-4 rounded-md shadow-[0px_0px_7px_0px_rgba(0, 0, 0, 0.29)]`}
            onClick={() =>
            navigate(`/country/${borderCountry.name.common}`)
            }
@@ -159,6 +154,12 @@ const CountryDetail = () => {
            ))}
         </div>
       </div>
+        </div>
+      </div>
+       ) : (
+          <p className={`${darkTheme ? "text-[#FFF]" : "text-[#111517]"} text-sm font-light}`}>Loading...</p>
+        )}
+     </div>
    </div>
   </>
   )
